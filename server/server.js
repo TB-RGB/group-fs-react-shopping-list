@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: true}))
 /** ---------- EXPRESS ROUTES ---------- **/
 // Create your API routes in a separate file
 // and plug them in here with `app.use()`
-app.use('/shopping', shoppingRouter)
+app.use('/api/shopping', shoppingRouter)
 /** ---------- START SERVER ---------- **/
 app.listen(PORT,  () => {
     console.log('Listening on port: ', PORT);
