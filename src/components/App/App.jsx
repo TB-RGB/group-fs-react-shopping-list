@@ -23,15 +23,7 @@ function App() {
       });
   };
 
-  const addItem = (newItem) => {
-    axios.post('/shopping', newItem)
-      .then(response => {
-        setItems([items, response.data]);
-      })
-      .catch(error => {
-        console.log('Error with addItem()', error);
-      });
-  };
+
 
 /*
 const deleteItem=(id) =>{
@@ -39,14 +31,21 @@ const deleteItem=(id) =>{
     .then(()={})
 }
 */
- 
+
+
+//list item  put 
+//shopping
+
+
+
+
 
 
   return (
     <div className="App">
       <Header />
       <main>
-        <ItemForm addItem={addItem} />
+        <ItemForm getItems={getItems} />
         <ShoppingList items={items} />
       </main>
     </div>
