@@ -12,7 +12,7 @@ const ItemForm = ({ getItems }) => {
 
         axios({
             method: "POST",
-            url: '/api/shopping',
+            url: '/shopping',
             data: {
                 item: newItem,
                 quantity: newQuantity,
