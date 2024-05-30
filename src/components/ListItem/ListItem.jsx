@@ -1,4 +1,16 @@
-const ListItem = ({ item, putFunc, deleteFunc }) => {
+import axios from "axios";
+const ListItem = ({ item, putFunc, getItems }) => {
+
+  const removeItems=(id)=>{
+    axios.delete(`/api/shopping/${id}`)
+        .then((response)=>{
+            getItems()
+        })
+        .catch((err)=>{
+            console.error('Could not remove item', err)
+        })
+}
+
   return (
     <>
       <div>
@@ -16,7 +28,7 @@ const ListItem = ({ item, putFunc, deleteFunc }) => {
             <button onClick={() => putFunc(item.id, true)}>Buy</button>
           )}
           {!item.purchased ? (
-            <button onClick={() => deleteFunc(item.id)}>Remove</button>
+            <button onClick={() => removeItems(item.id)}>Remove</button>
           ) : (
             <h3>Purchased</h3>
           )}

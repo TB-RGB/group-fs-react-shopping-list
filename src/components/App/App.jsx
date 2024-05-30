@@ -14,11 +14,11 @@ function App() {
   }, []);
 
   const getItems = () => {
-    axios.get('/shopping')
-      .then(response => {
+    axios.get('/api/shopping')
+      .then((response) => {
         setItems(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('Error with getItems()', error);
       });
   };
@@ -46,7 +46,7 @@ const deleteItem=(id) =>{
       <Header />
       <main>
         <ItemForm getItems={getItems} />
-        <ShoppingList items={items} />
+        <ShoppingList getItems={getItems} items={items} />
       </main>
     </div>
   );
