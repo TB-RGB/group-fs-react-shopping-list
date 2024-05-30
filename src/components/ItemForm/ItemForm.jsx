@@ -10,20 +10,26 @@ const ItemForm = ({ getItems }) => {
     const addItem = (event) => {
         event.preventDefault();
 
-        axios.post('/api/shopping', {
-            item: newItem,
-            quantity: newQuantity,
-            unit: newUnit
+        axios({
+            method: "POST",
+            url: '/api/shopping',
+            data: {
+                item: newItem,
+                quantity: newQuantity,
+                unit: newUnit
+            }
         })
-        .then((response) => {
-            getItems();
-            setNewItem('');
-            setNewQuantity('');
-            setNewUnit('');
-        })
-        .catch((error) => {
-            console.error('Error on add:', error);
-        });
+            .then((response) => {
+                getItems();
+
+                // Clear the form inputs:
+                setNewItem('')
+                setNewQuantity('')
+                setNewUnit('')
+            })
+            .catch((error) => {
+                console.error('Error on add:', error);
+            });
     };
 
     return (
