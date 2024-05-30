@@ -23,8 +23,18 @@ function App() {
       });
   };
 
+  
 
-
+  const handleClickDelete = (id) => {
+    console.log('DELETE - groceryId:', id);
+    deleteGrocery(id)
+      .then((response) => {
+        refreshGrocery();
+      })
+      .catch((err) => {
+        console.error('ERROR:', err);
+      });
+  };
 /*
 const deleteItem=(id) =>{
     axios.delete('/shopping/${id}')
