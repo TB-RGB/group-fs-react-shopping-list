@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-const ItemForm = ({ fetchShopping }) => {
+const ItemForm = ({ getItems }) => {
     const [newItem, setNewItem] = useState('');
     const [newQuantity, setNewQuantity] = useState('');
     const [newUnit, setNewUnit] = useState('');
@@ -16,7 +16,7 @@ const ItemForm = ({ fetchShopping }) => {
             unit: newUnit
         })
         .then((response) => {
-            fetchShopping();
+            getItems();
             setNewItem('');
             setNewQuantity('');
             setNewUnit('');
