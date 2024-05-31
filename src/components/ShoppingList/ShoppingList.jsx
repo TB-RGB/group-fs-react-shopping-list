@@ -23,6 +23,26 @@ const removeAll=()=>{
             console.error('Error in DELETE', err)
         })
 }
+
+const removeItems=(id)=>{
+    axios.delete(`/api/shopping/${id}`)
+        .then((response)=>{
+            getItems()
+        })
+        .catch((err)=>{
+            console.error('Could not remove item', err)
+        })
+}
+
+const markPurchased=(id,bool)=>{
+    axios.put(`/api/shopping/${id}`, {isPurchased: bool})
+        .then((response)=>{
+            getItems()
+        })
+        .catch((err)=>{
+            console.error('Could not mark purchased', err)
+        })
+    }
    
 
 
@@ -37,7 +57,7 @@ const removeAll=()=>{
              <div>
                 {items.map((item)=>(
                     <div key={item.id}>
-                    <ListItem item={item} getItems={getItems}/>
+                    <ListItem item={item} markPurchased={markPurchased} removeItems={removeItems}/>
                     </div>
                 ))}
             </div> 
