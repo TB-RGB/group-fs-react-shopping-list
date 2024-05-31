@@ -1,25 +1,7 @@
-import axios from "axios";
-const ListItem = ({ item, getItems }) => {
 
-  const removeItems=(id)=>{
-    axios.delete(`/api/shopping/${id}`)
-        .then((response)=>{
-            getItems()
-        })
-        .catch((err)=>{
-            console.error('Could not remove item', err)
-        })
-}
+const ListItem = ({ item, markPurchased, removeItems }) => {
 
-const markPurchased=(id,bool)=>{
-    axios.put(`/api/shopping/${id}`, {isPurchased: bool})
-        .then((response)=>{
-            getItems()
-        })
-        .catch((err)=>{
-            console.error('Could not mark purchased', err)
-        })
-    }
+ 
 
   return (
     <>
