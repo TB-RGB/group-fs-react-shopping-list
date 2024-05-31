@@ -51,11 +51,6 @@ router.put('/:id', (req,res)=>{
         UPDATE "shopping list" SET "purchased"=true
         WHERE "id"=$1;
         `
-    } else if (isPurchased === false){
-        queryText = `
-        UPDATE "shopping list" SET "purchased"=false
-        WHERE "id"=$1;
-        `
     } else {
         console.error('Trouble marking purchased')
         res.sendStatus(500)
@@ -71,9 +66,29 @@ router.put('/:id', (req,res)=>{
         })
 })
 
+// PUT /api/shopping/all
+router.put('/items/all', (req,res)=>{
+    const isPurchased = req.body.isPurchased;
+    let queryText = ''
+
+     if (isPurchased === false){
+        queryText = `
+        UPDATE "shopping list" SET "purchased"=false;
+        `;
+    } 
+
+    pool.query(queryText)
+        .then((response)=>{
+            res.sendStatus(204)
+        })
+        .catch((err)=>{
+            console.error('Error making PUT query for all', err)
+            res.sendStatus(500)
+        })
+})
+
 // DELETE /shopping/:id
 router.delete('/:id', (req,res)=>{
-    let ifParams = req.params
     let listId = [req.params.id];
     let queryText =''
     console.log(listId)
@@ -91,19 +106,22 @@ router.delete('/:id', (req,res)=>{
             console.error('Error making query:', queryText, 'error:', err)
             res.sendStatus(500)
         })
-    } else if (listId === undefined) {
-        queryText = `
-        DELETE FROM "shopping list";
-        `
-        pool.query(queryText)
-        .then((response)=>{
-            res.sendStatus(204)
-        })
-        .catch((err)=>{
-            console.error('Error making query:', queryText, 'error:', err)
-            res.sendStatus(500)
-        })
-    }
+    } 
+})
+
+// DELETE /api/shopping/all
+router.delete('/items/all', (req, res)=>{
+   let queryText = `
+    DELETE FROM "shopping list";
+    `
+    pool.query(queryText)
+    .then((response)=>{
+        res.sendStatus(204)
+    })
+    .catch((err)=>{
+        console.error('Error making query:', queryText, 'error:', err)
+        res.sendStatus(500)
+    })
 })
 
 module.exports = router;
